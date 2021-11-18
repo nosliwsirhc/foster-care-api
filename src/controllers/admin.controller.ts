@@ -1,16 +1,18 @@
-import crypto from 'crypto'
+import cryptoRandomString from 'crypto-random-string'
 import { Request, Response } from 'express'
-import bcrypt from 'bcrypt'
-import pool from '../lib/db'
+// import bcrypt from 'bcrypt'
+// import pool from '../lib/db'
+import { User, IUSerRoles } from '../entity/User'
 import { revokeRefreshTokenByUserId } from '../lib/auth.helper'
 
 const register = async (req: Request, res: Response) => {
     try {
-        const { email, password } = req.body
-        const salt = await bcrypt.genSalt(10)
-        const hash = await bcrypt.hash(password, salt)
-        const user = await pool.query("INSERT INTO app_user (email, password) VALUES ($1,$2) RETURNING id, email", [email,hash])
-        res.status(201).json(user.rows[0])   
+        const { username, password, roles } = req.body
+        const user = new User()
+        user.username = username
+        await user.createPassword(password)
+        await user.save()
+        res.json({id: user.id, username: user.username, roles: user.roles})
     } catch (error) {
         res.sendStatus(500)
     }
@@ -31,12 +33,14 @@ const resetPassword = async (req: Request, res: Response) => {
     try {
         const userId = req.query["user-id"] as string
         if(!userId) return res.sendStatus(401)
-        const salt = await bcrypt.genSalt(10)
-        const password = crypto.randomBytes(1).toString('utf-8')
-        const hash = await bcrypt.hash(password, salt)
-        // NEED TO SEND THE PASSWORD TO USER USING AN EMAIL SERVICE
-        await pool.query("UPDATE app_user SET password = $1 WHERE id = $2", [hash, userId])
-        res.sendStatus(201)
+        const user = await User.findOne(userId)
+        if(!user) return res.sendStatus(401)
+        const tempPassword = cryptoRandomString({length: 12, type: 'alphanumeric'})
+        user.createPassword(tempPassword)
+        await user.save()
+        // In production the password should be emailed to the user instead of the password
+        // being sent to the admin client
+        res.json({password: tempPassword})
     } catch (error) {
         res.sendStatus(500)
     }

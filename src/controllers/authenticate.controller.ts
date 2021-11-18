@@ -1,14 +1,12 @@
-import bcrypt from 'bcrypt'
-import pool from '../lib/db'
 import { Request, Response } from 'express'
+import { User } from '../entity/User'
 import { issueAccessJwt, issueRefreshJwt, refreshAuthJwts, revokeRefreshTokenByToken, revokeRefreshTokenByUserId } from '../lib/auth.helper'
 
 const login = async (req: Request, res: Response) => {
     try {
-        const { email, password } = req.body
-        const user = (await pool.query("SELECT id, password FROM app_user WHERE email = $1", [email])).rows[0]
-        const pwdMatch = await bcrypt.compare(password, user.password)
-        if(!pwdMatch) return res.status(401).json({message: "Password is incorrect"})
+        const { username, password } = req.body
+        const user = await User.findOneOrFail({username})
+        if(!await user.checkPassword(password)) return res.status(401).json({message: "Password is incorrect"})
         const token = issueAccessJwt(user.id)
         const refreshToken = issueRefreshJwt(user.id)
         res.status(200).json({token, refreshToken})

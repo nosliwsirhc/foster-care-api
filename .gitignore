@@ -83,6 +83,9 @@ web_modules/
 .env
 .env.test
 
+# TypeORM configuration file
+ormconfig.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
