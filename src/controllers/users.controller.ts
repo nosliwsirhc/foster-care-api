@@ -16,14 +16,13 @@ const userProfile = async (req: Request, res: Response) => {
 const users = async (req: Request, res: Response) => {
     try {
         const query = createQueryBuilder(User)
-            .select("id", "username")
             .orderBy("username")
         let limit = 10
         if(req.query["limit"]) {
             limit = parseInt(req.query["limit"] as string)
         }
         query.limit(limit)
-        const users = await query.getMany()
+        const users = await query.execute()
         res.status(200).json(users)   
     } catch (error) {
         res.status(500)

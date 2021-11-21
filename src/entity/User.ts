@@ -62,7 +62,7 @@ export class User extends BaseEntity {
         return pwdMatch
     }
 
-    async createPassword(password: string): Promise<{message: string}> {
+    async hashAndSetPassword(password: string): Promise<{message: string}> {
         if(this.password) return {message: 'Password already exists'}
         const salt = await bcrypt.genSalt()
         const hash = await bcrypt.hash(password, salt)

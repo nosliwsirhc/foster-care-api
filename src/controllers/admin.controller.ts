@@ -8,11 +8,26 @@ import { revokeRefreshTokenByUserId } from '../lib/auth.helper'
 const register = async (req: Request, res: Response) => {
     try {
         const { username, password, roles } = req.body
+        const userExists = !!await User.findOne({username})
+        if(userExists) return res.json({message: 'User exists'})
         const user = new User()
         user.username = username
-        await user.createPassword(password)
+        user.roles = roles
+        await user.hashAndSetPassword(password)
         await user.save()
         res.json({id: user.id, username: user.username, roles: user.roles})
+    } catch (error) {
+        res.sendStatus(500)
+    }
+}
+
+const deleteUser = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id
+        if(!id) return res.sendStatus(400)
+        const user = await User.findOneOrFail(id)
+        await user.remove()
+        res.sendStatus(200)
     } catch (error) {
         res.sendStatus(500)
     }
@@ -36,7 +51,7 @@ const resetPassword = async (req: Request, res: Response) => {
         const user = await User.findOne(userId)
         if(!user) return res.sendStatus(401)
         const tempPassword = cryptoRandomString({length: 12, type: 'alphanumeric'})
-        user.createPassword(tempPassword)
+        user.hashAndSetPassword(tempPassword)
         await user.save()
         // In production the password should be emailed to the user instead of the password
         // being sent to the admin client
@@ -48,6 +63,7 @@ const resetPassword = async (req: Request, res: Response) => {
 
 export default {
     register,
+    deleteUser,
     revokeToken,
     resetPassword
 }
