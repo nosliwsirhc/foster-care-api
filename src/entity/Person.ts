@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm'
+import { Address } from './Address'
+import { PersonAddress } from './PersonAddress'
+import { PersonContact } from './PersonContact'
 
 @Entity()
 export class Person extends BaseEntity {
@@ -35,5 +38,17 @@ export class Person extends BaseEntity {
 
     @Column()
     sexuality: string
+
+    @OneToMany(type => PersonAddress, address => address.person)
+    address: PersonAddress
+
+    @OneToMany(type => PersonContact, contact => contact.person)
+    contact: PersonContact
+
+    @CreateDateColumn()
+    createdAt: Date
+
+    @UpdateDateColumn()
+    updatedAt: Date
 
 }
