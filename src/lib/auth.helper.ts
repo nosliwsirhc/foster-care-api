@@ -16,8 +16,7 @@ interface Token {
 }
 
 const client = createClient({
-  host: process.env.REDIS_URL || '192.168.100.40',
-  port: 12747,
+  url: process.env.REDIS_URL || '127.0.0.1:6379'
 });
 client.auth(process.env.REDIS_PASS || 'chrisw1234');
 

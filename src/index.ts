@@ -25,10 +25,10 @@ const PORT = process.env.PORT || 3000
 app.use(express.json())
 app.use(passport.initialize())
 
-app.use(`${API_URI}/admin`, routes.admin)
+app.use(`${API_URI}/admin`, passport.authenticate('jwt', { session: false }), routes.admin)
 app.use(`${API_URI}/authenticate`, routes.authenticate)
-app.use(`${API_URI}/users`, routes.users)
-app.use(`${API_URI}/user`, routes.user)
+app.use(`${API_URI}/users`, passport.authenticate('jwt', { session: false }), routes.users)
+app.use(`${API_URI}/user`, passport.authenticate('jwt', { session: false }), routes.user)
 
 app.listen(PORT, () => {
     console.info(`Server started on Port ${PORT}`)
