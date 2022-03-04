@@ -9,7 +9,7 @@ export class PersonContact extends BaseEntity {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @OneToOne(type => Person)
+    @ManyToOne(type => Person)
     person: Person
 
     @OneToOne(type => Contact)

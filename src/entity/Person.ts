@@ -1,7 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, JoinTable } from 'typeorm'
-import { Address } from './Address'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinColumn, JoinTable } from 'typeorm'
+import { Ethnicity } from './Ethnicity'
 import { PersonAddress } from './PersonAddress'
 import { PersonContact } from './PersonContact'
+import { PersonEmail } from './PersonEmail'
+import { PersonGender } from './PersonGender'
 
 @Entity()
 export class Person extends BaseEntity {
@@ -21,8 +23,8 @@ export class Person extends BaseEntity {
     @Column()
     sex: string
 
-    @Column()
-    gender: string
+    @OneToMany(type => PersonGender, gender => gender.person)
+    gender: PersonGender[]
 
     @Column()
     dateOfBirth: Date
@@ -30,8 +32,9 @@ export class Person extends BaseEntity {
     @Column()
     religion: string
 
-    @Column()
-    ethnicity: string
+    @ManyToMany(type => Ethnicity)
+    @JoinTable()
+    ethnicity: Ethnicity[]
 
     @Column()
     race: string
@@ -40,10 +43,13 @@ export class Person extends BaseEntity {
     sexuality: string
 
     @OneToMany(type => PersonAddress, address => address.person)
-    address: PersonAddress
+    address: PersonAddress[]
 
     @OneToMany(type => PersonContact, contact => contact.person)
-    contact: PersonContact
+    contact: PersonContact[]
+
+    @OneToMany(type => PersonEmail, email => email.person)
+    email: PersonEmail[]
 
     @CreateDateColumn()
     createdAt: Date

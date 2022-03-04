@@ -1,10 +1,10 @@
 import { BaseEntity, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Address } from "./Address";
-import { AddressType } from "./AddressType";
+import { Email } from "./Email";
+import { EmailType } from "./EmailType";
 import { Person } from "./Person";
 
 @Entity()
-export class PersonAddress extends BaseEntity {
+export class PersonEmail extends BaseEntity {
 
     @PrimaryGeneratedColumn("uuid")
     id: string
@@ -12,16 +12,16 @@ export class PersonAddress extends BaseEntity {
     @ManyToOne(type => Person)
     person: Person
 
-    @OneToOne(type => Address)
-    address: Address
+    @OneToOne(type => Email)
+    email: Email
 
-    @ManyToOne(type => AddressType)
-    addressType: AddressType
+    @ManyToOne(type => EmailType)
+    emailType: EmailType
 
     @CreateDateColumn()
     createdAt: Date
 
     @UpdateDateColumn()
     updatedAt: Date
-    
+
 }
