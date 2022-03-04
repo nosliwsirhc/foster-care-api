@@ -1,9 +1,20 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinColumn, JoinTable } from 'typeorm'
 import { Ethnicity } from './Ethnicity'
+import { Language } from './Language'
 import { PersonAddress } from './PersonAddress'
 import { PersonContact } from './PersonContact'
 import { PersonEmail } from './PersonEmail'
 import { PersonGender } from './PersonGender'
+import { PersonReligion } from './PersonReligion'
+import { PersonSexuality } from './PersonSexuality'
+import { Race } from './Race'
+import { Religion } from './Religion'
+
+export enum Sex {
+    FEMALE = 'female',
+    MALE = 'male',
+    INTERSEX = 'intersex'
+}
 
 @Entity()
 export class Person extends BaseEntity {
@@ -20,27 +31,35 @@ export class Person extends BaseEntity {
     @Column({ nullable: false })
     lastName: string
 
-    @Column()
-    sex: string
+    @Column({
+        type: 'enum',
+        enum: Sex
+    })
+    sex: Sex
 
     @OneToMany(type => PersonGender, gender => gender.person)
     gender: PersonGender[]
 
+    @ManyToMany(type => Language)
+    @JoinTable()
+    language: Language[]
+
     @Column()
     dateOfBirth: Date
 
-    @Column()
-    religion: string
+    @OneToMany(type => PersonReligion, religion => religion.person)
+    religion: Religion[]
 
     @ManyToMany(type => Ethnicity)
     @JoinTable()
     ethnicity: Ethnicity[]
 
-    @Column()
-    race: string
+    @ManyToMany(type => Race)
+    @JoinTable()
+    race: Race[]
 
-    @Column()
-    sexuality: string
+    @OneToMany(type => PersonSexuality, sexuality => sexuality.person)
+    sexuality: PersonSexuality[]
 
     @OneToMany(type => PersonAddress, address => address.person)
     address: PersonAddress[]
