@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, Column } from 'typeorm'
 import bcrypt from 'bcrypt'
+import { BasicEntity } from './BasicEntity'
 
 export interface IUSerRoles {
     admin: boolean
@@ -13,10 +14,7 @@ export interface IUSerRoles {
 }
 
 @Entity()
-export class User extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class User extends BasicEntity {
 
     @Column({
         nullable: false,
@@ -50,12 +48,6 @@ export class User extends BaseEntity {
         }
     })
     roles: IUSerRoles
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 
     async checkPassword(password: string): Promise<boolean> {
         const pwdMatch = await bcrypt.compare(password, this.password)

@@ -1,18 +1,10 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
 
 @Entity()
-export class Race extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class Race extends BasicEntity {
 
     @Column({ unique: true, nullable: false })
     race: string
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
     
 }

@@ -1,12 +1,10 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, ManyToOne } from "typeorm";
+import { Entity, Column, ManyToOne } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
 import { Person } from "./Person";
 import { Sexuality } from "./Sexuality";
 
 @Entity()
-export class PersonSexuality extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class PersonSexuality extends BasicEntity {
 
     @ManyToOne(type => Person)
     person: Person
@@ -16,11 +14,5 @@ export class PersonSexuality extends BaseEntity {
 
     @Column()
     dateIdentified: Date
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 
 }
