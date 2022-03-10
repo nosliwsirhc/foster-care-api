@@ -1,10 +1,8 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
+import { BasicEntity } from "./BasicEntity";
 
 @Entity()
-export class Contact extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class Contact extends BasicEntity {
 
     @Column()
     countryCode: string
@@ -20,11 +18,5 @@ export class Contact extends BaseEntity {
 
     @Column()
     extension: string
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 
 }

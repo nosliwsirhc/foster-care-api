@@ -1,13 +1,11 @@
-import { BaseEntity, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Email } from "./Email";
-import { EmailType } from "./EmailType";
+import { Entity, ManyToOne, OneToOne } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
+import { Email } from "../Email";
+import { EmailType } from "../EmailType";
 import { Person } from "./Person";
 
 @Entity()
-export class PersonEmail extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class PersonEmail extends BasicEntity {
 
     @ManyToOne(type => Person)
     person: Person
@@ -17,11 +15,5 @@ export class PersonEmail extends BaseEntity {
 
     @ManyToOne(type => EmailType)
     emailType: EmailType
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 
 }

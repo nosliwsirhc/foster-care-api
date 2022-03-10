@@ -1,21 +1,13 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
 
 @Entity()
-export class Ethnicity extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class Ethnicity extends BasicEntity {
 
     @Column({ unique: true, nullable: false })
     ethnicity: string
 
     @Column({ default: false })
     isIndigenous: boolean
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 
 }

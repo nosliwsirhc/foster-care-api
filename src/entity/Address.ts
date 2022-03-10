@@ -1,10 +1,8 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
+import { BasicEntity } from "./BasicEntity";
 
 @Entity()
-export class Address extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class Address extends BasicEntity {
 
     @Column()
     address1: string
@@ -20,11 +18,5 @@ export class Address extends BaseEntity {
 
     @Column()
     postalCode: string
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 
 }

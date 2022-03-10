@@ -1,18 +1,10 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
 
 @Entity()
-export class Language extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class Language extends BasicEntity {
 
     @Column({ unique: true, nullable: false })
     language: string
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
     
 }

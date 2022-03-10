@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinColumn, JoinTable } from 'typeorm'
+import { Entity, Column, OneToMany, ManyToMany, JoinColumn, JoinTable, OneToOne } from 'typeorm'
+import { BasicEntity } from '../BasicEntity'
+import { User } from '../User'
 import { Ethnicity } from './Ethnicity'
 import { Language } from './Language'
 import { PersonAddress } from './PersonAddress'
@@ -17,10 +19,7 @@ export enum Sex {
 }
 
 @Entity()
-export class Person extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class Person extends BasicEntity {
 
     @Column({ nullable: false })
     firstName: string
@@ -70,10 +69,8 @@ export class Person extends BaseEntity {
     @OneToMany(type => PersonEmail, email => email.person)
     email: PersonEmail[]
 
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
+    @OneToOne(type => User)
+    @JoinColumn()
+    user: User
 
 }

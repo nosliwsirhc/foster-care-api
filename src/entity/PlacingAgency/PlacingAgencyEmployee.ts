@@ -23,4 +23,5 @@ export class PlacingAgencyEmployee extends BaseEntity {
 
     @UpdateDateColumn()
     updatedAt: Date
+
 }

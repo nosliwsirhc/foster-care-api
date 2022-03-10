@@ -1,11 +1,9 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
 import { HomeStudy } from "./HomeStudy";
 
 @Entity()
-export class FosterHome extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class FosterHome extends BasicEntity {
 
     @Column({ unique: true, nullable: false })
     name: string
@@ -23,9 +21,4 @@ export class FosterHome extends BaseEntity {
     @JoinColumn()
     homeStudy: HomeStudy
 
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 }
