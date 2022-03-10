@@ -2,12 +2,9 @@ import { Column, Entity } from "typeorm";
 import { BasicEntity } from "../BasicEntity";
 
 @Entity()
-export class PlacingAgencyJobTitle extends BasicEntity {
+export class Diagnosis extends BasicEntity {
 
     @Column()
-    jobTitle: string
-
-    @Column()
-    department: string
+    diagnosis: string
 
 }

@@ -1,5 +1,6 @@
-import { Entity, Column, OneToMany, ManyToMany, JoinColumn, JoinTable, OneToOne } from 'typeorm'
+import { Entity, Column, OneToMany, ManyToMany, JoinColumn, JoinTable, OneToOne, ManyToOne } from 'typeorm'
 import { BasicEntity } from '../BasicEntity'
+import { MedicalIssue } from '../Medical/MedicalIssue'
 import { User } from '../User'
 import { Ethnicity } from './Ethnicity'
 import { Language } from './Language'
@@ -9,8 +10,11 @@ import { PersonEmail } from './PersonEmail'
 import { PersonGender } from './PersonGender'
 import { PersonReligion } from './PersonReligion'
 import { PersonSexuality } from './PersonSexuality'
+import { Prefix } from './Prefix'
+import { Profession } from './Profession'
 import { Race } from './Race'
 import { Religion } from './Religion'
+import { Suffix } from './Suffix'
 
 export enum Sex {
     FEMALE = 'female',
@@ -21,6 +25,9 @@ export enum Sex {
 @Entity()
 export class Person extends BasicEntity {
 
+    @ManyToOne(type => Prefix)
+    prefix: Prefix
+
     @Column({ nullable: false })
     firstName: string
 
@@ -29,6 +36,13 @@ export class Person extends BasicEntity {
 
     @Column({ nullable: false })
     lastName: string
+
+    @ManyToMany(type => Suffix)
+    @JoinTable()
+    suffix: Suffix[]
+
+    @ManyToOne(type => Profession)
+    profession: Profession
 
     @Column({
         type: 'enum',
@@ -72,5 +86,8 @@ export class Person extends BasicEntity {
     @OneToOne(type => User)
     @JoinColumn()
     user: User
+
+    @OneToMany(type => MedicalIssue, medicalIssue => medicalIssue.person)
+    medicalIssue: MedicalIssue[]
 
 }

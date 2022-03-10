@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, OneToOne } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { BasicEntity } from "../BasicEntity";
 import { Email } from "../Email";
 import { EmailType } from "../EmailType";
@@ -11,6 +11,7 @@ export class PersonEmail extends BasicEntity {
     person: Person
 
     @OneToOne(type => Email)
+    @JoinColumn()
     email: Email
 
     @ManyToOne(type => EmailType)

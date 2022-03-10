@@ -1,18 +1,10 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
 
 @Entity()
-export class PlacingAgency extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class PlacingAgency extends BasicEntity {
 
     @Column({ unique: true, nullable: false })
     name: string
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
 
 }

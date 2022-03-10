@@ -1,11 +1,9 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, ManyToOne } from "typeorm";
+import { BasicEntity } from "../BasicEntity";
 import { PlacingAgencyEmployee } from "./PlacingAgencyEmployee";
 
 @Entity()
-export class PlacingAgencyEmployeeJobTitle extends BaseEntity {
-
-    @PrimaryGeneratedColumn("uuid")
-    id: string
+export class PlacingAgencyEmployeeJobTitle extends BasicEntity {
 
     @ManyToOne(type => PlacingAgencyEmployee)
     employee: PlacingAgencyEmployee
@@ -16,11 +14,5 @@ export class PlacingAgencyEmployeeJobTitle extends BaseEntity {
     // THIS is the reason for the join table as employees can change job titles
     @Column()
     dateActive: Date
-
-    @CreateDateColumn()
-    createdAt: Date
-
-    @UpdateDateColumn()
-    updatedAt: Date
     
 }

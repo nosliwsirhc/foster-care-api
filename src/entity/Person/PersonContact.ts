@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, OneToOne } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { BasicEntity } from "../BasicEntity";
 import { Contact } from "../Contact";
 import { ContactType } from "../ContactType";
@@ -11,6 +11,7 @@ export class PersonContact extends BasicEntity {
     person: Person
 
     @OneToOne(type => Contact)
+    @JoinColumn()
     address: Contact
 
     @ManyToOne(type => ContactType)
