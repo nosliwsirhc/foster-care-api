@@ -27,4 +27,7 @@ export class Prognosis extends BasicEntity {
     @Column()
     prognosis: string
 
+    @Column()
+    docUrl: string
+
 }

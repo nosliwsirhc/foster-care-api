@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, OneToMany } from "typeorm";
+import { Entity, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { BasicEntity } from "../BasicEntity";
 import { Person } from "../Person/Person";
 import { Diagnosis } from "./Diagnosis";
@@ -18,5 +18,9 @@ export class MedicalIssue extends BasicEntity {
 
     @OneToMany(type => Prognosis, prognosis => prognosis.medicalIssue)
     prognosis: Prognosis[]
+
+    @ManyToMany(type => MedicalIssue)
+    @JoinTable()
+    task: MedicalIssue[]
 
 }
