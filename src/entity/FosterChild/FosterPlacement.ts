@@ -1,8 +1,10 @@
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToOne, OneToMany, OneToOne } from "typeorm";
 import { BasicEntity } from "../BasicEntity";
 import { FosterHome } from "../FosterHome/FosterHome";
 import { PlacingAgency } from "../PlacingAgency/PlacingAgency";
 import { FosterChild } from "./FosterChild";
+import { IntakeMedical } from "./IntakeMedical";
+import { IntakeRightsReview } from "./IntakeRightsReview";
 
 @Entity()
 export class FosterPlacement extends BasicEntity {
@@ -22,23 +24,27 @@ export class FosterPlacement extends BasicEntity {
     @Column()
     dischargeDate: Date
     
+    @OneToOne(type => IntakeMedical)
+    @JoinTable()
     intakeMedical: IntakeMedical
 
+    @OneToOne(type => IntakeRightsReview)
+    @JoinTable()
     intakeRightsReview: IntakeRightsReview
 
-    intakeHomeRulesReview: IntakeHomeRulesReview
+    // intakeHomeRulesReview: IntakeHomeRulesReview
 
-    intakeDiscussAdvocacy: IntakeDiscussAdvocacy
+    // intakeDiscussAdvocacy: IntakeDiscussAdvocacy
 
-    intakeConsentToService: IntakeConsentToService
+    // intakeConsentToService: IntakeConsentToService
 
-    annualMedical: AnnualMedical[]
+    // annualMedical: AnnualMedical[]
     
-    dischargeMedical: DischargeMedical
+    // dischargeMedical: DischargeMedical
 
-    planOfCare: PlanOfCare[]
+    // planOfCare: PlanOfCare[]
 
-    dischargePlan: DischargePlan
+    // dischargePlan: DischargePlan
 
 
 

@@ -2,9 +2,10 @@ import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { HealthFacility } from "./HealthFacility";
 import { MedicalProfessional } from "./MedicalProfessional";
 import { MedicalIssue } from "./MedicalIssue";
+import { BasicEntity } from "../BasicEntity";
 
 @Entity()
-export class MedicalIssueHealthFacility {
+export class MedicalIssueHealthFacility extends BasicEntity {
 
     @ManyToOne(type => MedicalIssue)
     medicalIssue: MedicalIssue
