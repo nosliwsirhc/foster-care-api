@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import express from 'express'
-import dbConection from './lib/dbConnection'
+import dbConnection from './lib/dbConnection'
 import routes from './routes'
 import morgan from 'morgan'
 import helmet from 'helmet'
@@ -17,7 +17,7 @@ if(process.env.NODE_ENV === "production") {
     app.use(morgan('combined'))
 }
 
-dbConection()
+dbConnection()
     .then(() => console.info('Database Connected'))
 
 const PORT = process.env.PORT || 3000

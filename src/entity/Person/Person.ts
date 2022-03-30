@@ -22,6 +22,19 @@ export enum Sex {
     INTERSEX = 'intersex'
 }
 
+export interface IPerson {
+    prefix: string,
+    firstName: string,
+    middleName: string,
+    lastName: string,
+    suffix: string[],
+    profession: string,
+    sex: Sex,
+    gender: string[],
+    language: string[],
+    
+}
+
 @Entity()
 export class Person extends BasicEntity {
 

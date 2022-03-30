@@ -5,12 +5,14 @@ import { issueAccessJwt, issueRefreshJwt, refreshAuthJwts, revokeRefreshTokenByT
 const login = async (req: Request, res: Response) => {
     try {
         const { username, password } = req.body
-        const user = await User.findOneOrFail({username})
+        const user = await User.findOne({username})
+        if(!user) return res.sendStatus(401)
         if(!await user.checkPassword(password)) return res.status(401).json({message: "Password is incorrect"})
         const token = issueAccessJwt(user.id)
         const refreshToken = issueRefreshJwt(user.id)
         res.status(200).json({token, refreshToken})
     } catch (error) {
+        console.error(error)
         res.sendStatus(500)
     }
 }
