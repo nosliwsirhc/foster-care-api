@@ -1,4 +1,5 @@
-import { Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Agency } from "../Agency";
 import { BasicEntity } from "../BasicEntity";
 import { Person } from "../Person/Person";
 import { FosterPlacement } from "./FosterPlacement";
@@ -7,6 +8,9 @@ import { SocialHistory } from "./SocialHistory";
 
 @Entity()
 export class FosterChild extends BasicEntity {
+
+    @ManyToOne(() => Agency)
+    agency: Agency
 
     @OneToOne(type => Person)
     @JoinColumn()

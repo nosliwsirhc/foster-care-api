@@ -1,9 +1,13 @@
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Agency } from "../Agency";
 import { BasicEntity } from "../BasicEntity";
 import { HomeStudy } from "./HomeStudy";
 
 @Entity()
 export class FosterHome extends BasicEntity {
+
+    @ManyToOne(() => Agency)
+    agency: Agency
 
     @Column({ unique: true, nullable: false })
     name: string

@@ -5,6 +5,15 @@ import { Request, Response } from 'express'
 import { User, IUSerRoles } from '../entity/User'
 import { revokeRefreshTokenByUserId } from '../lib/auth.helper'
 
+const seed = async (req: Request, res: Response) => {
+    try {
+        const { agencyName } = req.body
+        
+    } catch (error) {
+        
+    }
+}
+
 const register = async (req: Request, res: Response) => {
     try {
         const { username, password, roles } = req.body
@@ -62,6 +71,7 @@ const resetPassword = async (req: Request, res: Response) => {
 }
 
 export default {
+    seed,
     register,
     deleteUser,
     revokeToken,

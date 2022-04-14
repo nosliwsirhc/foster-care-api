@@ -1,4 +1,5 @@
 import { Entity, Column, OneToMany, ManyToMany, JoinColumn, JoinTable, OneToOne, ManyToOne } from 'typeorm'
+import { Agency } from '../Agency'
 import { BasicEntity } from '../BasicEntity'
 import { MedicalIssue } from '../Medical/MedicalIssue'
 import { User } from '../User'
@@ -37,6 +38,9 @@ export interface IPerson {
 
 @Entity()
 export class Person extends BasicEntity {
+
+    @ManyToOne(() => Agency)
+    agency: Agency
 
     @ManyToOne(type => Prefix)
     prefix: Prefix

@@ -1,9 +1,13 @@
-import { Column, Entity, JoinTable, ManyToMany } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from "typeorm";
+import { Agency } from "../Agency";
 import { BasicEntity } from "../BasicEntity";
 import { PerDiemRateCriteria } from "./PerDiemRateCriteria";
 
 @Entity()
 export class PerDiemRateType extends BasicEntity {
+
+    @ManyToOne(() => Agency)
+    agency: Agency
 
     @Column()
     label: string

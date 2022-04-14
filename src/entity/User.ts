@@ -1,6 +1,7 @@
-import { Entity, Column } from 'typeorm'
+import { Entity, Column, ManyToOne } from 'typeorm'
 import bcrypt from 'bcrypt'
 import { BasicEntity } from './BasicEntity'
+import { Agency } from './Agency'
 
 export interface IUSerRoles {
     admin: boolean
@@ -15,6 +16,9 @@ export interface IUSerRoles {
 
 @Entity()
 export class User extends BasicEntity {
+
+    @ManyToOne(() => Agency)
+    agency: Agency
 
     @Column({
         nullable: false,
